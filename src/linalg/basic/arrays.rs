@@ -672,13 +672,13 @@ pub trait MutArrayView1<T: Debug + Display + Copy + Sized>:
                 loop {
                     loop {
                         i += 1;
-                        if *self.get(i) >= a {
+                        if i > ir || *self.get(i) >= a {
                             break;
                         }
                     }
                     loop {
                         j -= 1;
-                        if *self.get(j) <= a {
+                        if j < l || *self.get(j) <= a {
                             break;
                         }
                     }
