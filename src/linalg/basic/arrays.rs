@@ -698,14 +698,21 @@ pub trait MutArrayView1<T: Debug + Display + Copy + Sized>:
                     panic!("stack size is too small.");
                 }
 
-                if ir - i + 1 >= j - l {
-                    istack[jstack as usize] = ir;
-                    istack[jstack as usize - 1] = i;
-                    ir = j - 1;
+                // Always process the smaller partition first to ensure log stack depth
+                if (j - l) < (ir - i + 1) {
+                    // If left partition is smaller
+                    // Process left partition next, push right partition onto stack
+                    istack[jstack as usize] = ir; // Push right upper bound
+                    istack[jstack as usize - 1] = i; // Push right lower bound
+                    ir = j - 1; // Continue with left upper bound
+                                // l remains the same (left lower bound)
                 } else {
-                    istack[jstack as usize] = j - 1;
-                    istack[jstack as usize - 1] = l;
-                    l = i;
+                    // If right partition is smaller or equal
+                    // Process right partition next, push left partition onto stack
+                    istack[jstack as usize] = j - 1; // Push left upper bound
+                    istack[jstack as usize - 1] = l; // Push left lower bound
+                    l = i; // Continue with right lower bound
+                           // ir remains the same (right upper bound)
                 }
             }
         }
