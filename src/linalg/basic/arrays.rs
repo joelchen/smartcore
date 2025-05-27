@@ -618,7 +618,7 @@ pub trait MutArrayView1<T: Debug + Display + Copy + Sized>:
     where
         T: Number + PartialOrd,
     {
-        let stack_size = 64;
+        let stack_size = 128;
         let mut jstack = -1;
         let mut l = 0;
         let mut istack = vec![0; stack_size];
