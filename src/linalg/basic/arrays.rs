@@ -618,7 +618,7 @@ pub trait MutArrayView1<T: Debug + Display + Copy + Sized>:
     where
         T: Number + PartialOrd,
     {
-        let stack_size = 128;
+        let stack_size = 256;
         let mut jstack = -1;
         let mut l = 0;
         let mut istack = vec![0; stack_size];
@@ -694,7 +694,7 @@ pub trait MutArrayView1<T: Debug + Display + Copy + Sized>:
                 index[j] = b;
                 jstack += 2;
 
-                if jstack >= 64 {
+                if jstack >= 256 {
                     panic!("stack size is too small.");
                 }
 
